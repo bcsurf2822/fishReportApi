@@ -1,5 +1,6 @@
 using FishReportApi.Data;
 using FishReportApi.Models;
+using FishReportApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +11,10 @@ namespace FishReportApi.Controllers
     [ApiController]
     public class FishController : ControllerBase
     {
-        private readonly FishDBContext _context;
-        public FishController(FishDBContext context)
+        private readonly IFishRepository _repository;
+        public FishController(IFishRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
 
@@ -24,7 +25,7 @@ namespace FishReportApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllFish()
         {
-            var fishList = await _context.Species.ToListAsync();
+            var fishList = await _repository.GetAllAsync();
             return Ok(fishList);
         }
 
@@ -35,12 +36,8 @@ namespace FishReportApi.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetFishById(int id)
         {
-            var fish = await _context.Species.FindAsync(id);
-
-            if (fish == null)
-            {
-                return NotFound($"No fish with {id}");
-            }
+            var fish = await _repository.GetByIdAsync(id);
+            if (fish == null) return NotFound();
             return Ok(fish);
         }
 
@@ -48,17 +45,11 @@ namespace FishReportApi.Controllers
         [HttpPost("createFish")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateFish([FromBody] Species species)
+        public async Task<IActionResult> CreateFish([FromBody] Species fish)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            await _context.Species.AddAsync(species);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetFishById), new { id = species.Id }, species);
+            await _repository.CreateAsync(fish);
+            await _repository.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetFishById), new { id = fish.Id }, fish);
         }
 
 
@@ -67,26 +58,14 @@ namespace FishReportApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> UpdateFish(int id, [FromBody] Species updatedFish)
+        public async Task<IActionResult> UpdateFish(int id, [FromBody] Species fish)
         {
-            if (id != updatedFish.Id)
-            {
-                return BadRequest("ID mismatch");
-            }
+            if (id != fish.Id) return BadRequest("ID mismatch");
 
-            var existingFish = await _context.Species.FindAsync(id);
-            if (existingFish == null)
-            {
-                return NotFound();
-            }
+            var success = await _repository.UpdateAsync(fish);
+            if (!success) return NotFound();
 
-            existingFish.Name = updatedFish.Name;
-            existingFish.Habitat = updatedFish.Habitat;
-            existingFish.Length = updatedFish.Length;
-            existingFish.Population = updatedFish.Population;
-            existingFish.Lifespan = updatedFish.Lifespan;
-
-            await _context.SaveChangesAsync();
+            await _repository.SaveChangesAsync();
             return NoContent();
         }
 
@@ -97,20 +76,15 @@ namespace FishReportApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PatchFish(int id, [FromBody] JsonPatchDocument<Species> patchDoc)
         {
-            var existingFish = await _context.Species.FindAsync(id);
-            if (existingFish == null)
-            {
-                return NotFound();
-            }
-
-            patchDoc.ApplyTo(existingFish, ModelState);
+            var success = await _repository.PatchAsync(id, patchDoc, ModelState);
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
-            await _context.SaveChangesAsync();
+            if (!success)
+                return NotFound();
+
+            await _repository.SaveChangesAsync();
             return NoContent();
         }
 
@@ -121,15 +95,10 @@ namespace FishReportApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteFish(int id)
         {
-            var fish = await _context.Species.FindAsync(id);
-            if (fish == null)
-            {
-                return NotFound($"No fish found with ID {id}");
-            }
+            var success = await _repository.DeleteAsync(id);
+            if (!success) return NotFound();
 
-            _context.Species.Remove(fish);
-            await _context.SaveChangesAsync();
-
+            await _repository.SaveChangesAsync();
             return NoContent();
         }
     }

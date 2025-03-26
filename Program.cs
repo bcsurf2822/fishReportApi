@@ -1,4 +1,6 @@
 using FishReportApi.Data;
+using FishReportApi.Repositories;
+using FishReportApi.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddControllers()
     .AddNewtonsoftJson();
+builder.Services.AddScoped<IFishRepository, FishRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
