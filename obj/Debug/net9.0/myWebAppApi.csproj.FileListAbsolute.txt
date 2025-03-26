@@ -192,3 +192,7 @@
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/obj/Debug/net9.0/myWebAppApi.pdb
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/obj/Debug/net9.0/myWebAppApi.genruntimeconfig.cache
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/obj/Debug/net9.0/ref/myWebAppApi.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Microsoft.AspNetCore.JsonPatch.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Newtonsoft.Json.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Newtonsoft.Json.Bson.dll
