@@ -1,8 +1,7 @@
-using FishReportApi.Data;
 using FishReportApi.Models;
+using FishReportApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FishReportApi.Controllers
 {
@@ -10,41 +9,35 @@ namespace FishReportApi.Controllers
     [ApiController]
     public class FishMarketController : ControllerBase
     {
-        private readonly FishDBContext _context;
+        private readonly IFishMarketRepository _repository;
 
-        public FishMarketController(FishDBContext context)
+        public FishMarketController(IFishMarketRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
-        // GET: api/fishmarket
+        // GET: api/fishmarket/getAll
         [HttpGet("getAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
         {
-            var markets = await _context.FishMarkets
-                .Include(m => m.Species)
-                .ToListAsync();
-
+            var markets = await _repository.GetAllAsync();
             return Ok(markets);
         }
 
-        // GET: api/fishmarket/{id}
+        // GET: api/fishmarket/marketid/{id}
         [HttpGet("marketid/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int id)
         {
-            var market = await _context.FishMarkets
-                .Include(m => m.Species)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
+            var market = await _repository.GetByIdAsync(id);
             if (market == null) return NotFound();
 
             return Ok(market);
         }
 
-        // POST: api/fishmarket
+        // POST: api/fishmarket/createmarket
         [HttpPost("createmarket")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -53,13 +46,13 @@ namespace FishReportApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _context.FishMarkets.AddAsync(market);
-            await _context.SaveChangesAsync();
+            await _repository.CreateAsync(market);
+            await _repository.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetById), new { id = market.Id }, market);
         }
 
-        // PUT: api/fishmarket/{id}
+        // PUT: api/fishmarket/update/{id}
         [HttpPut("update/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,23 +62,21 @@ namespace FishReportApi.Controllers
             if (id != updatedMarket.Id)
                 return BadRequest("ID mismatch");
 
-            var existingMarket = await _context.FishMarkets.FindAsync(id);
-            if (existingMarket == null) return NotFound();
+            var success = await _repository.UpdateAsync(updatedMarket);
+            if (!success) return NotFound();
 
-            _context.Entry(existingMarket).CurrentValues.SetValues(updatedMarket);
-            await _context.SaveChangesAsync();
-
+            await _repository.SaveChangesAsync();
             return NoContent();
         }
 
-        // PATCH: api/fishmarket/{id}
+        // PATCH: api/fishmarket/updatepartial/{id}
         [HttpPatch("updatepartial/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<FishMarket> patchDoc)
         {
-            var market = await _context.FishMarkets.FindAsync(id);
+            var market = await _repository.GetByIdAsync(id);
             if (market == null) return NotFound();
 
             patchDoc.ApplyTo(market, ModelState);
@@ -93,22 +84,20 @@ namespace FishReportApi.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await _context.SaveChangesAsync();
+            await _repository.SaveChangesAsync();
             return NoContent();
         }
 
-        // DELETE: api/fishmarket/{id}
+        // DELETE: api/fishmarket/delete/{id}
         [HttpDelete("delete/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
-            var market = await _context.FishMarkets.FindAsync(id);
-            if (market == null) return NotFound();
+            var success = await _repository.DeleteAsync(id);
+            if (!success) return NotFound();
 
-            _context.FishMarkets.Remove(market);
-            await _context.SaveChangesAsync();
-
+            await _repository.SaveChangesAsync();
             return NoContent();
         }
     }
