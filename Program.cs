@@ -11,6 +11,7 @@ builder.Services
     .AddControllers()
     .AddNewtonsoftJson();
 builder.Services.AddScoped<IFishRepository, FishRepository>();
+builder.Services.AddScoped<IFishMarketRepository, FishMarketRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();

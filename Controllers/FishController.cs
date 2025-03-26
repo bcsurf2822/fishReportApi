@@ -47,6 +47,11 @@ namespace FishReportApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateFish([FromBody] Species fish)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             await _repository.CreateAsync(fish);
             await _repository.SaveChangesAsync();
             return CreatedAtAction(nameof(GetFishById), new { id = fish.Id }, fish);
@@ -60,8 +65,11 @@ namespace FishReportApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateFish(int id, [FromBody] Species fish)
         {
-            if (id != fish.Id) return BadRequest("ID mismatch");
-
+            if (id != fish.Id) return BadRequest("Invalid ID");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             var success = await _repository.UpdateAsync(fish);
             if (!success) return NotFound();
 

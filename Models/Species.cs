@@ -8,10 +8,10 @@ namespace FishReportApi.Models
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-    [Required]
+    [Required(ErrorMessage = "Species name required")]
     [StringLength(100)]
     public string? Name { get; set; }
-    [Required]
+    [Required(ErrorMessage = "Please provide habitat")]
     [StringLength(100, ErrorMessage = "Habitat cannot be longer than 100 characters.")]
 
     public string? Habitat { get; set; }
@@ -23,5 +23,9 @@ namespace FishReportApi.Models
     public int Lifespan { get; set; }
     [Range(0.01, 200.00, ErrorMessage = "Price must be between $0.01 and $200.00.")]
     public decimal Price { get; set; }
+    public int? FishMarketId { get; set; }
+
+    [ForeignKey("FishMarketId")]
+    public FishMarket? FishMarket { get; set; }
   }
 }
