@@ -1,4 +1,5 @@
 using AutoMapper;
+using FishReportApi.DTOs;
 using FishReportApi.Models;
 
 namespace FishReportApi.Mappings

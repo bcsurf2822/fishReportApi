@@ -196,3 +196,5 @@
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Newtonsoft.Json.dll
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Newtonsoft.Json.Bson.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/AutoMapper.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
