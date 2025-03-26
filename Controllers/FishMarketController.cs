@@ -16,7 +16,7 @@ namespace FishReportApi.Controllers
             _repository = repository;
         }
 
-        // GET: api/fishmarket/getAll
+        // GET
         [HttpGet("getAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAll()
@@ -25,7 +25,7 @@ namespace FishReportApi.Controllers
             return Ok(markets);
         }
 
-        // GET: api/fishmarket/marketid/{id}
+        // GET
         [HttpGet("marketid/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -37,7 +37,7 @@ namespace FishReportApi.Controllers
             return Ok(market);
         }
 
-        // POST: api/fishmarket/createmarket
+        // POST
         [HttpPost("createmarket")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -52,7 +52,7 @@ namespace FishReportApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = market.Id }, market);
         }
 
-        // PUT: api/fishmarket/update/{id}
+        // PUT
         [HttpPut("update/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,7 +69,7 @@ namespace FishReportApi.Controllers
             return NoContent();
         }
 
-        // PATCH: api/fishmarket/updatepartial/{id}
+        // PATCH
         [HttpPatch("updatepartial/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -88,7 +88,7 @@ namespace FishReportApi.Controllers
             return NoContent();
         }
 
-        // DELETE: api/fishmarket/delete/{id}
+        // DELETE
         [HttpDelete("delete/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
