@@ -13,11 +13,29 @@ namespace FishReportApi.Controllers
         {
             _context = context;
         }
-        [HttpGet]
+        [HttpGet("getAllFish")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllFish()
         {
             var fishList = await _context.Species.ToListAsync();
             return Ok(fishList);
+        }
+
+        [HttpGet("getById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetFishById(int id)
+        {
+            var fish = await _context.Species.FindAsync(id);
+
+            if (fish == null)
+            {
+                return NotFound($"No fish with {id}");
+            }
+            return Ok(fish);
         }
     }
 }
