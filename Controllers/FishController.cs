@@ -19,7 +19,7 @@ namespace FishReportApi.Controllers
 
 
         //GET ALL FISH
-        [HttpGet("getAllFish")]
+        [HttpGet("getAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -42,7 +42,7 @@ namespace FishReportApi.Controllers
         }
 
         //POST FISH
-        [HttpPost("createFish")]
+        [HttpPost("create")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateFish([FromBody] Species fish)

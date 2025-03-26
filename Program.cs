@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Services
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services
     .AddControllers()
     .AddNewtonsoftJson();
