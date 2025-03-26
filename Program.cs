@@ -1,6 +1,12 @@
+using FishReportApi.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
 var builder = WebApplication.CreateBuilder(args);
 
-
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<FishDBContext>(options =>
+options.UseSqlite(connectionString));
 
 
 builder.Services.AddEndpointsApiExplorer();
