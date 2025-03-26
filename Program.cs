@@ -1,20 +1,21 @@
 using FishReportApi.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<FishDBContext>(options =>
-options.UseSqlite(connectionString));
-
-
+// Services
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthorization();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<FishDBContext>(options =>
+    options.UseSqlite(connectionString));
 
 var app = builder.Build();
 
-
+// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -22,8 +23,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthorization();
 
+app.MapControllers();
 
 app.Run();
-
-

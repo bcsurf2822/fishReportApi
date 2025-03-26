@@ -10,10 +10,10 @@ namespace FishReportApi.Models
     public int Id { get; set; }
     [Required]
     [StringLength(100)]
-    public string Name { get; set; }
+    public string? Name { get; set; }
     [Required]
     [StringLength(100)]
-    public string Habitat { get; set; }
+    public string? Habitat { get; set; }
     [Range(0.0, 500.0)]
     public int Length { get; set; }
     public int? Population { get; set; }
