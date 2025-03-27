@@ -9,6 +9,7 @@ namespace FishReportApi.Mappings
         public AutoMapperProfile()
         {
             CreateMap<Species, SpeciesDTO>().ReverseMap();
+            CreateMap<FishMarket, FishMarketDTO>().ReverseMap();
         }
     }
 }

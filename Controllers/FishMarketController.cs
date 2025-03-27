@@ -1,3 +1,5 @@
+using AutoMapper;
+using FishReportApi.DTOs;
 using FishReportApi.Models;
 using FishReportApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.JsonPatch;
@@ -10,10 +12,13 @@ namespace FishReportApi.Controllers
     public class FishMarketController : ControllerBase
     {
         private readonly IFishMarketRepository _repository;
+        private readonly IMapper _mapper;
 
-        public FishMarketController(IFishMarketRepository repository)
+
+        public FishMarketController(IFishMarketRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         // GET
@@ -22,7 +27,8 @@ namespace FishReportApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var markets = await _repository.GetAllAsync();
-            return Ok(markets);
+            var marketDTOs = _mapper.Map<IEnumerable<FishMarketDTO>>(markets);
+            return Ok(marketDTOs);
         }
 
         // GET

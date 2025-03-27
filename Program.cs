@@ -20,13 +20,19 @@ builder.Services.AddScoped<IFishMarketRepository, FishMarketRepository>();
 //CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocal3000", policy =>
+    options.AddPolicy("AllowLocal5173", policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.WithOrigins("http://localhost:5173")
                   .AllowAnyMethod()
                   .AllowAnyHeader();
     });
-    options.AddPolicy("AllowGov", policy =>
+    options.AddPolicy("AllowAll", policy =>
+{
+    policy.AllowAnyOrigin()
+          .AllowAnyMethod()
+          .AllowAnyHeader();
+});
+    options.AddPolicy("AllowFisheriesService", policy =>
 {
     policy.WithOrigins("https://", "https://")
           .AllowAnyMethod()
@@ -65,7 +71,7 @@ var app = builder.Build();
 //CORS
 if (app.Environment.IsDevelopment())
 {
-    app.UseCors("AllowLocalhost");
+    app.UseCors("AllowAll");
 }
 else
 {
