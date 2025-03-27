@@ -78,6 +78,20 @@ namespace FishReportApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = market.Id }, marketDTO);
         }
 
+        [HttpPost("addtoinventory")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> AddSpeciesToMarket([FromBody] MarketControlDTO dto)
+        {
+            var success = await _repository.AddSpeciesToMarketAsync(dto.MarketId, dto.SpeciesId);
+
+            if (!success)
+                return NotFound("Market or Species not found, or Species already exists in Market Inventory.");
+
+            return Ok($"Species {dto.SpeciesId} successfully added to Market {dto.MarketId}");
+        }
+
         // PUT
         [HttpPut("update/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -8,6 +8,7 @@ namespace FishReportApi.Repositories.Interfaces
         Task<FishMarket?> GetByIdAsync(int id);
         Task<FishMarket> CreateAsync(FishMarket market);
         Task<bool> UpdateAsync(FishMarket market);
+        Task<bool> AddSpeciesToMarketAsync(int marketId, int speciesId);
         Task<bool> DeleteAsync(int id);
         Task SaveChangesAsync();
     }
