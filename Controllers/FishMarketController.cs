@@ -56,18 +56,26 @@ namespace FishReportApi.Controllers
         }
 
         // POST
-        [HttpPost("createmarket")]
+        [HttpPost("createnew")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Create([FromBody] FishMarket market)
+        public async Task<IActionResult> Create([FromBody] MarketInventoryDTO marketDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            // Create FishMarket object from DTO
+            var market = new FishMarket
+            {
+                MarketName = marketDTO.MarketName,
+                Location = marketDTO.Location,
+                FishMarketInventory = new List<FishMarketInventory>()
+            };
+
             await _repository.CreateAsync(market);
             await _repository.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetById), new { id = market.Id }, market);
+            return CreatedAtAction(nameof(GetById), new { id = market.Id }, marketDTO);
         }
 
         // PUT
