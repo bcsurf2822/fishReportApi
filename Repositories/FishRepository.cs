@@ -17,6 +17,14 @@ namespace FishReportApi.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<Species>> GetAllForInventoryAsync()
+        {
+            return await _context.Species
+                .Include(s => s.FishMarketInventory)
+                .ThenInclude(fmi => fmi.FishMarket)
+                .ToListAsync();
+        }
+
         public async Task<bool> PatchAsync(int id, JsonPatchDocument<Species> patchDoc, ModelStateDictionary modelState)
         {
             var fish = await _context.Species.FindAsync(id);

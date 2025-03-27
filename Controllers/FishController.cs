@@ -1,4 +1,6 @@
+using AutoMapper;
 using FishReportApi.Data;
+using FishReportApi.DTOs;
 using FishReportApi.Models;
 using FishReportApi.Repositories.Interfaces;
 using Microsoft.AspNetCore.JsonPatch;
@@ -12,9 +14,11 @@ namespace FishReportApi.Controllers
     public class FishController : ControllerBase
     {
         private readonly IFishRepository _repository;
-        public FishController(IFishRepository repository)
+        private readonly IMapper _mapper;
+        public FishController(IFishRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
 
@@ -28,6 +32,17 @@ namespace FishReportApi.Controllers
             var fishList = await _repository.GetAllAsync();
             return Ok(fishList);
         }
+
+        [HttpGet("fishInventory")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetAllSpeciesInventory()
+        {
+            var speciesList = await _repository.GetAllForInventoryAsync();
+            var speciesDTOs = _mapper.Map<IEnumerable<SpeciesInventoryDTO>>(speciesList);
+            return Ok(speciesDTOs);
+        }
+
 
         //GET FISH
         [HttpGet("getById/{id}")]
@@ -45,6 +60,7 @@ namespace FishReportApi.Controllers
         [HttpPost("create")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CreateFish([FromBody] Species fish)
         {
             if (!ModelState.IsValid)
@@ -63,6 +79,7 @@ namespace FishReportApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateFish(int id, [FromBody] Species fish)
         {
             if (id != fish.Id) return BadRequest("Invalid ID");
@@ -82,6 +99,7 @@ namespace FishReportApi.Controllers
         [HttpPatch("updatePartial/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> PatchFish(int id, [FromBody] JsonPatchDocument<Species> patchDoc)
         {
             var success = await _repository.PatchAsync(id, patchDoc, ModelState);
@@ -101,6 +119,7 @@ namespace FishReportApi.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeleteFish(int id)
         {
             var success = await _repository.DeleteAsync(id);

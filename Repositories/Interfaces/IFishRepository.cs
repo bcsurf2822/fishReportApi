@@ -7,6 +7,7 @@ namespace FishReportApi.Repositories.Interfaces
     public interface IFishRepository
     {
         Task<IEnumerable<Species>> GetAllAsync();
+        Task<IEnumerable<Species>> GetAllForInventoryAsync();
         Task<Species?> GetByIdAsync(int id);
         Task<Species> CreateAsync(Species fish);
         Task<bool> UpdateAsync(Species fish);

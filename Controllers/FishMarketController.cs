@@ -24,6 +24,7 @@ namespace FishReportApi.Controllers
         // GET
         [HttpGet("getAll")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAll()
         {
             var markets = await _repository.GetAllAsync();
@@ -35,6 +36,7 @@ namespace FishReportApi.Controllers
         [HttpGet("marketid/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetById(int id)
         {
             var market = await _repository.GetByIdAsync(id);
@@ -48,6 +50,7 @@ namespace FishReportApi.Controllers
         //GET ALL INVENTORYDTO
         [HttpGet("inventory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetMarketSummary()
         {
             var markets = await _repository.GetAllAsync();
@@ -59,6 +62,7 @@ namespace FishReportApi.Controllers
         [HttpPost("createnew")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create([FromBody] MarketInventoryDTO marketDTO)
         {
             if (!ModelState.IsValid)
@@ -78,18 +82,21 @@ namespace FishReportApi.Controllers
             return CreatedAtAction(nameof(GetById), new { id = market.Id }, marketDTO);
         }
 
-        [HttpPost("addtoinventory")]
+
+        //ADD TO INVENTORY
+        [HttpPost("addtoinventory/{marketId}/{speciesId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> AddSpeciesToMarket([FromBody] MarketControlDTO dto)
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> AddSpeciesToMarket(int marketId, int speciesId)
         {
-            var success = await _repository.AddSpeciesToMarketAsync(dto.MarketId, dto.SpeciesId);
+            var success = await _repository.AddSpeciesToMarketAsync(marketId, speciesId);
 
             if (!success)
                 return NotFound("Market or Species not found, or Species already exists in Market Inventory.");
 
-            return Ok($"Species {dto.SpeciesId} successfully added to Market {dto.MarketId}");
+            return Ok($"Species {speciesId} successfully added to Market {marketId}");
         }
 
         // PUT
@@ -97,6 +104,7 @@ namespace FishReportApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Update(int id, [FromBody] FishMarket updatedMarket)
         {
             if (id != updatedMarket.Id)
@@ -114,6 +122,7 @@ namespace FishReportApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Patch(int id, [FromBody] JsonPatchDocument<FishMarket> patchDoc)
         {
             var market = await _repository.GetByIdAsync(id);
@@ -131,6 +140,7 @@ namespace FishReportApi.Controllers
         [HttpDelete("deletefrominventory/{marketId}/{speciesId}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> RemoveSpeciesFromMarket(int marketId, int speciesId)
         {
             var success = await _repository.RemoveSpeciesFromMarketAsync(marketId, speciesId);
