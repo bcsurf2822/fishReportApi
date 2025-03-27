@@ -23,9 +23,6 @@ namespace FishReportApi.Models
     public int Lifespan { get; set; }
     [Range(0.01, 200.00, ErrorMessage = "Price must be between $0.01 and $200.00.")]
     public decimal Price { get; set; }
-    public int? FishMarketId { get; set; }
-
-    [ForeignKey("FishMarketId")]
-    public FishMarket? FishMarket { get; set; }
+    public List<FishMarketInventory> FishMarketInventory { get; set; } = [];
   }
 }

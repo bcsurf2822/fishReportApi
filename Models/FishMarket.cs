@@ -16,7 +16,6 @@ namespace FishReportApi.Models
         [StringLength(200, ErrorMessage = "Location must be under 200 characters.")]
         public string? Location { get; set; }
 
-        // Navigation property
-        public List<Species> Species { get; set; } = [];
+        public List<FishMarketInventory> FishMarketInventory { get; set; } = [];
     }
 }
