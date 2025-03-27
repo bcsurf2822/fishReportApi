@@ -45,6 +45,16 @@ namespace FishReportApi.Controllers
             return Ok(marketDTO);
         }
 
+        //GET ALL INVENTORYDTO
+        [HttpGet("inventory")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetMarketSummary()
+        {
+            var markets = await _repository.GetAllAsync();
+            var summaryDTOs = _mapper.Map<IEnumerable<MarketInventoryDTO>>(markets);
+            return Ok(summaryDTOs);
+        }
+
         // POST
         [HttpPost("createmarket")]
         [ProducesResponseType(StatusCodes.Status201Created)]

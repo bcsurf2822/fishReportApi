@@ -15,6 +15,11 @@ namespace FishReportApi.Mappings
                 .ForMember(dest => dest.Species, opt => opt.MapFrom(src =>
                     src.FishMarketInventory.Select(fmi => fmi.Species)))
                 .ReverseMap();
+
+            CreateMap<Species, SpeciesInventoryDTO>();
+            CreateMap<FishMarket, MarketInventoryDTO>()
+                .ForMember(dest => dest.Species, opt => opt.MapFrom(src =>
+                    src.FishMarketInventory.Select(fmi => fmi.Species)));
         }
     }
 }
