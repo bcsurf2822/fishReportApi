@@ -14,7 +14,6 @@ namespace FishReportApi.Repositories
             _context = context;
         }
 
-        // Override to include species data
         public override async Task<IEnumerable<FishMarket>> GetAllAsync()
         {
             return await _context.FishMarkets
@@ -41,22 +40,36 @@ namespace FishReportApi.Repositories
 
             if (market == null || species == null)
             {
-                return false; // Return false if market or species doesn't exist
+                return false;
             }
 
-            // Check if species is already in the market
             if (market.FishMarketInventory.Any(fmi => fmi.SpeciesId == speciesId))
             {
-                return false; // Prevent duplicate entries
+                return false;
             }
 
-            // Add species to the inventory
+
             _context.FishMarketInventory.Add(new FishMarketInventory
             {
                 FishMarketId = marketId,
                 SpeciesId = speciesId
             });
 
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> RemoveSpeciesFromMarketAsync(int marketId, int speciesId)
+        {
+            var inventoryEntry = await _context.FishMarketInventory
+                .FirstOrDefaultAsync(fmi => fmi.FishMarketId == marketId && fmi.SpeciesId == speciesId);
+
+            if (inventoryEntry == null)
+            {
+                return false;
+            }
+
+            _context.FishMarketInventory.Remove(inventoryEntry);
             await _context.SaveChangesAsync();
             return true;
         }

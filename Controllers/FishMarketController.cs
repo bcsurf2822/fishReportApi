@@ -128,6 +128,21 @@ namespace FishReportApi.Controllers
             return NoContent();
         }
 
+        [HttpDelete("deletefrominventory/{marketId}/{speciesId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> RemoveSpeciesFromMarket(int marketId, int speciesId)
+        {
+            var success = await _repository.RemoveSpeciesFromMarketAsync(marketId, speciesId);
+
+            if (!success)
+            {
+                return NotFound("Market or species not found, or species is not in the market inventory.");
+            }
+
+            return NoContent();
+        }
+
         // DELETE
         [HttpDelete("delete/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
