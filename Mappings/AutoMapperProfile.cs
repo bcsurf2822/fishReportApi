@@ -9,7 +9,12 @@ namespace FishReportApi.Mappings
         public AutoMapperProfile()
         {
             CreateMap<Species, SpeciesDTO>().ReverseMap();
-            CreateMap<FishMarket, FishMarketDTO>().ReverseMap();
+
+
+            CreateMap<FishMarket, FishMarketDTO>()
+                .ForMember(dest => dest.Species, opt => opt.MapFrom(src =>
+                    src.FishMarketInventory.Select(fmi => fmi.Species)))
+                .ReverseMap();
         }
     }
 }

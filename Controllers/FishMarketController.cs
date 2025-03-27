@@ -40,7 +40,9 @@ namespace FishReportApi.Controllers
             var market = await _repository.GetByIdAsync(id);
             if (market == null) return NotFound();
 
-            return Ok(market);
+            var marketDTO = _mapper.Map<FishMarketDTO>(market);
+
+            return Ok(marketDTO);
         }
 
         // POST

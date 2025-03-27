@@ -15,6 +15,6 @@ namespace FishReportApi.DTOs
         public int Id { get; set; }
         public string MarketName { get; set; }
         public string? Location { get; set; }
-        public List<SpeciesDTO> Species { get; set; } = [];
+        public List<SpeciesDTO>? Species { get; set; } = new();
     }
 }

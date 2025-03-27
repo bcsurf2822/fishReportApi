@@ -17,17 +17,18 @@ namespace FishReportApi.Data
       base.OnModelCreating(modelBuilder);
 
       modelBuilder.Entity<FishMarketInventory>()
-    .HasKey(fms => new { fms.FishMarketId, fms.SpeciesId });
+                   .HasKey(fmi => new { fmi.FishMarketId, fmi.SpeciesId });
 
       modelBuilder.Entity<FishMarketInventory>()
-          .HasOne(fms => fms.FishMarket)
+          .HasOne(fmi => fmi.FishMarket)
           .WithMany(fm => fm.FishMarketInventory)
-          .HasForeignKey(fms => fms.FishMarketId);
+          .HasForeignKey(fmi => fmi.FishMarketId);
 
       modelBuilder.Entity<FishMarketInventory>()
-          .HasOne(fms => fms.Species)
+          .HasOne(fmi => fmi.Species)
           .WithMany(s => s.FishMarketInventory)
-          .HasForeignKey(fms => fms.SpeciesId);
+          .HasForeignKey(fmi => fmi.SpeciesId);
+
 
       // Seed Fish Markets
       modelBuilder.Entity<FishMarket>().HasData(
@@ -59,15 +60,11 @@ namespace FishReportApi.Data
           );
 
       modelBuilder.Entity<FishMarketInventory>().HasData(
-        new FishMarketInventory { FishMarketId = 1, SpeciesId = 1 },
-        new FishMarketInventory { FishMarketId = 1, SpeciesId = 2 },
-        new FishMarketInventory { FishMarketId = 1, SpeciesId = 5 },
-        new FishMarketInventory { FishMarketId = 1, SpeciesId = 12 },
-        new FishMarketInventory { FishMarketId = 2, SpeciesId = 18 },
-        new FishMarketInventory { FishMarketId = 2, SpeciesId = 15 },
-        new FishMarketInventory { FishMarketId = 3, SpeciesId = 8 },
-        new FishMarketInventory { FishMarketId = 3, SpeciesId = 3 }
-    );
+          new FishMarketInventory { FishMarketId = 1, SpeciesId = 1 },
+          new FishMarketInventory { FishMarketId = 1, SpeciesId = 2 },
+          new FishMarketInventory { FishMarketId = 2, SpeciesId = 3 },
+          new FishMarketInventory { FishMarketId = 3, SpeciesId = 4 }
+      );
     }
   }
 }

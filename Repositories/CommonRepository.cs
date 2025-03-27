@@ -16,14 +16,14 @@ namespace FishReportApi.Repositories
             _dbSet = context.Set<T>();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
         }
 
-        public async Task<T?> GetByIdAsync(int id)
+        public virtual async Task<T?> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbSet.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
 
         public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
@@ -39,6 +39,9 @@ namespace FishReportApi.Repositories
 
         public async Task<bool> UpdateAsync(T entity)
         {
+            var existingEntity = await GetByIdAsync((int)_context.Entry(entity).Property("Id").CurrentValue);
+            if (existingEntity == null) return false;
+
             _context.Entry(entity).State = EntityState.Modified;
             return true;
         }
@@ -56,9 +59,5 @@ namespace FishReportApi.Repositories
         {
             await _context.SaveChangesAsync();
         }
-    }
-
-    public interface ICommonRepository<T> where T : class
-    {
     }
 }

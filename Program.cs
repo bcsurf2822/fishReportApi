@@ -12,7 +12,7 @@ builder.Services.AddDbContext<FishDBContext>(options =>
 
 
 //REPOSITORIES
-builder.Services.AddScoped(typeof(ICommonRepository<>), typeof(CommonRepository<>));
+builder.Services.AddScoped(typeof(ICommonRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IFishRepository, FishRepository>();
 builder.Services.AddScoped<IFishMarketRepository, FishMarketRepository>();
 

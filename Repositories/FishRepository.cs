@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace FishReportApi.Repositories
 {
-    public class FishRepository : CommonRepository<Species>, IFishRepository
+    public class FishRepository : GenericRepository<Species>, IFishRepository
     {
         public FishRepository(FishDBContext context) : base(context)
         {
