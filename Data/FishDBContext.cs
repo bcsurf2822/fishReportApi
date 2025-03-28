@@ -60,10 +60,29 @@ namespace FishReportApi.Data
           );
 
       modelBuilder.Entity<FishMarketInventory>().HasData(
-          new FishMarketInventory { FishMarketId = 1, SpeciesId = 1 },
-          new FishMarketInventory { FishMarketId = 1, SpeciesId = 2 },
-          new FishMarketInventory { FishMarketId = 2, SpeciesId = 3 },
-          new FishMarketInventory { FishMarketId = 3, SpeciesId = 4 }
+   new FishMarketInventory { FishMarketId = 1, SpeciesId = 1 },
+new FishMarketInventory { FishMarketId = 1, SpeciesId = 2 },
+new FishMarketInventory { FishMarketId = 1, SpeciesId = 4 },
+new FishMarketInventory { FishMarketId = 1, SpeciesId = 6 },
+new FishMarketInventory { FishMarketId = 1, SpeciesId = 7 },
+new FishMarketInventory { FishMarketId = 1, SpeciesId = 9 },
+new FishMarketInventory { FishMarketId = 1, SpeciesId = 10 },
+
+new FishMarketInventory { FishMarketId = 2, SpeciesId = 3 },
+new FishMarketInventory { FishMarketId = 2, SpeciesId = 5 },
+new FishMarketInventory { FishMarketId = 2, SpeciesId = 8 },
+new FishMarketInventory { FishMarketId = 2, SpeciesId = 11 },
+new FishMarketInventory { FishMarketId = 2, SpeciesId = 12 },
+new FishMarketInventory { FishMarketId = 2, SpeciesId = 14 },
+new FishMarketInventory { FishMarketId = 2, SpeciesId = 16 },
+new FishMarketInventory { FishMarketId = 2, SpeciesId = 18 },
+
+new FishMarketInventory { FishMarketId = 3, SpeciesId = 4 },
+new FishMarketInventory { FishMarketId = 3, SpeciesId = 7 },
+new FishMarketInventory { FishMarketId = 3, SpeciesId = 9 },
+new FishMarketInventory { FishMarketId = 3, SpeciesId = 13 },
+new FishMarketInventory { FishMarketId = 3, SpeciesId = 15 },
+new FishMarketInventory { FishMarketId = 3, SpeciesId = 17 }
       );
     }
   }

@@ -83,13 +83,98 @@ namespace myWebAppApi.Migrations
                         },
                         new
                         {
+                            FishMarketId = 1,
+                            SpeciesId = 4
+                        },
+                        new
+                        {
+                            FishMarketId = 1,
+                            SpeciesId = 6
+                        },
+                        new
+                        {
+                            FishMarketId = 1,
+                            SpeciesId = 7
+                        },
+                        new
+                        {
+                            FishMarketId = 1,
+                            SpeciesId = 9
+                        },
+                        new
+                        {
+                            FishMarketId = 1,
+                            SpeciesId = 10
+                        },
+                        new
+                        {
                             FishMarketId = 2,
                             SpeciesId = 3
                         },
                         new
                         {
+                            FishMarketId = 2,
+                            SpeciesId = 5
+                        },
+                        new
+                        {
+                            FishMarketId = 2,
+                            SpeciesId = 8
+                        },
+                        new
+                        {
+                            FishMarketId = 2,
+                            SpeciesId = 11
+                        },
+                        new
+                        {
+                            FishMarketId = 2,
+                            SpeciesId = 12
+                        },
+                        new
+                        {
+                            FishMarketId = 2,
+                            SpeciesId = 14
+                        },
+                        new
+                        {
+                            FishMarketId = 2,
+                            SpeciesId = 16
+                        },
+                        new
+                        {
+                            FishMarketId = 2,
+                            SpeciesId = 18
+                        },
+                        new
+                        {
                             FishMarketId = 3,
                             SpeciesId = 4
+                        },
+                        new
+                        {
+                            FishMarketId = 3,
+                            SpeciesId = 7
+                        },
+                        new
+                        {
+                            FishMarketId = 3,
+                            SpeciesId = 9
+                        },
+                        new
+                        {
+                            FishMarketId = 3,
+                            SpeciesId = 13
+                        },
+                        new
+                        {
+                            FishMarketId = 3,
+                            SpeciesId = 15
+                        },
+                        new
+                        {
+                            FishMarketId = 3,
+                            SpeciesId = 17
                         });
                 });
 

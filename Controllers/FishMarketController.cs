@@ -2,6 +2,7 @@ using AutoMapper;
 using FishReportApi.DTOs;
 using FishReportApi.Models;
 using FishReportApi.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,6 +60,7 @@ namespace FishReportApi.Controllers
         }
 
         // POST
+        [Authorize]
         [HttpPost("createnew")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -84,6 +86,7 @@ namespace FishReportApi.Controllers
 
 
         //ADD TO INVENTORY
+        [Authorize]
         [HttpPost("addtoinventory/{marketId}/{speciesId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -118,6 +121,7 @@ namespace FishReportApi.Controllers
         }
 
         // PATCH
+        [Authorize]
         [HttpPatch("updatepartial/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -154,11 +158,17 @@ namespace FishReportApi.Controllers
         }
 
         // DELETE
+        [Authorize]
         [HttpDelete("delete/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return Unauthorized(new { message = "Unauthorized. Please log in to perform this action." });
+            }
+
             var success = await _repository.DeleteAsync(id);
             if (!success) return NotFound();
 

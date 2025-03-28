@@ -27,9 +27,9 @@ namespace FishReportApi.Controllers
             if (loginDto.Username == "marketAdmin" && loginDto.Password == "marketAdmin")
             {
                 var token = GenerateToken(loginDto.Username);
-                return Ok(new { Token = token });
+                return Ok(new { Token = token, loginDto.Username });
             }
-            return Unauthorized("Invalid username or password.");
+            return Unauthorized("Please provide valid Market Police Credentials");
         }
 
         private string GenerateToken(string username)

@@ -3,6 +3,7 @@ using FishReportApi.Data;
 using FishReportApi.DTOs;
 using FishReportApi.Models;
 using FishReportApi.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -73,29 +74,8 @@ namespace FishReportApi.Controllers
             return CreatedAtAction(nameof(GetFishById), new { id = fish.Id }, fish);
         }
 
-
-        //PUT | UPDATE FULL
-        [HttpPut("update/{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> UpdateFish(int id, [FromBody] Species fish)
-        {
-            if (id != fish.Id) return BadRequest("Invalid ID");
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var success = await _repository.UpdateAsync(fish);
-            if (!success) return NotFound();
-
-            await _repository.SaveChangesAsync();
-            return NoContent();
-        }
-
-
         //PATCH | Update Partial
+        [Authorize]
         [HttpPatch("updatePartial/{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -116,6 +96,7 @@ namespace FishReportApi.Controllers
 
 
         //DELETE | Fish
+        [Authorize]
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
