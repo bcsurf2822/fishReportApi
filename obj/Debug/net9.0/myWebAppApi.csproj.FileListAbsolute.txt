@@ -198,3 +198,11 @@
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Newtonsoft.Json.Bson.dll
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/AutoMapper.dll
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
+/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
