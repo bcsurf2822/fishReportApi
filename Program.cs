@@ -82,9 +82,9 @@ builder.Services.AddCors(options =>
           .AllowAnyMethod()
           .AllowAnyHeader();
 });
-    options.AddPolicy("AllowMarkets", policy =>
+    options.AddPolicy("AllowClient", policy =>
     {
-        policy.WithOrigins("https://myfrontend.com")
+        policy.WithOrigins("https://fishnet-in-the-cloud.netlify.app/")
             .AllowAnyMethod()
             .AllowAnyHeader();
     });
@@ -112,30 +112,30 @@ builder.Services.AddAutoMapper(typeof(Program));
 //BUILDS APP
 var app = builder.Build();
 
-// //CORS
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseCors("AllowLocal5173");
-// }
-// else
-// {
-//     app.UseCors("AllowAll");
-// }
+//CORS
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors("AllowLocal5173");
+}
+else
+{
+    app.UseCors("AllowAll");
+}
 
 
-// // Middleware
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
+// Middleware
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-app.UseCors("AllowAll"); // Always allow all during dev/debugging
-// app.UseCors("AllowLocal5173"); // Or use a more specific one if needed
+// app.UseCors("AllowAll"); // Always allow all during dev/debugging
+// // app.UseCors("AllowLocal5173"); // Or use a more specific one if needed
 
-// Swagger always ON (for now)
-app.UseSwagger();
-app.UseSwaggerUI();
+// // Swagger always ON (for now)
+// app.UseSwagger();
+// app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
