@@ -34,14 +34,8 @@
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/myWebAppApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.Swagger.dll
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/myWebAppApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerGen.dll
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/myWebAppApi/bin/Debug/net9.0/Swashbuckle.AspNetCore.SwaggerUI.dll
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/web.config
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/appsettings.Development.json
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/appsettings.json
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/appsettings.Development.json
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/appsettings.json
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/myWebAppApi.deps.json
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/myWebAppApi.runtimeconfig.json
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/myWebAppApi.staticwebassets.endpoints.json
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/myWebAppApi.staticwebassets.endpoints.json
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/myWebAppApi
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/myWebAppApi.deps.json
