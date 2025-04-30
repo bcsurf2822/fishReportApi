@@ -84,7 +84,7 @@ builder.Services.AddCors(options =>
 });
     options.AddPolicy("AllowClient", policy =>
     {
-        policy.WithOrigins("https://fishnet-in-the-cloud.netlify.app/")
+        policy.WithOrigins("fishnet-in-the-cloud.netlify.app")
             .AllowAnyMethod()
             .AllowAnyHeader();
     });

@@ -236,9 +236,3 @@
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/obj/Debug/net9.0/myWebAppApi.pdb
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/obj/Debug/net9.0/myWebAppApi.genruntimeconfig.cache
 /Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/obj/Debug/net9.0/ref/myWebAppApi.dll
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/web.config
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/appsettings.Development.json
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/appsettings.json
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/myWebAppApi.deps.json
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/myWebAppApi.runtimeconfig.json
-/Users/benjamincorbett/code/klobot/net/webAPI/myWebApp/fishReportApi/bin/Debug/net9.0/publish/myWebAppApi.staticwebassets.endpoints.json
