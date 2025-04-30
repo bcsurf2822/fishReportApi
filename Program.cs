@@ -119,7 +119,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseCors("AllowAll");
+    app.UseCors("AllowClient");
 }
 
 
