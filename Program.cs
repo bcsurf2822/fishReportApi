@@ -115,11 +115,11 @@ var app = builder.Build();
 //CORS
 if (app.Environment.IsDevelopment())
 {
-    app.UseCors("AllowAll");
+    app.UseCors("AllowLocal5173");
 }
 else
 {
-    app.UseCors("AllowFrontendOnly");
+    app.UseCors("AllowLocal5173");
 }
 
 
