@@ -16,10 +16,10 @@ namespace myWebAppApi.Migrations
                 name: "FishMarkets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    MarketName = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Location = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MarketName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,14 +30,14 @@ namespace myWebAppApi.Migrations
                 name: "Species",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Habitat = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Length = table.Column<int>(type: "INTEGER", nullable: false),
-                    Population = table.Column<int>(type: "INTEGER", nullable: true),
-                    Lifespan = table.Column<int>(type: "INTEGER", nullable: false),
-                    Price = table.Column<decimal>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Habitat = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Length = table.Column<int>(type: "int", nullable: false),
+                    Population = table.Column<int>(type: "int", nullable: true),
+                    Lifespan = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,4)", precision: 18, scale: 4, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -48,8 +48,8 @@ namespace myWebAppApi.Migrations
                 name: "FishMarketInventory",
                 columns: table => new
                 {
-                    FishMarketId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SpeciesId = table.Column<int>(type: "INTEGER", nullable: false)
+                    FishMarketId = table.Column<int>(type: "int", nullable: false),
+                    SpeciesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

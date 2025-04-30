@@ -16,6 +16,10 @@ namespace FishReportApi.Data
     {
       base.OnModelCreating(modelBuilder);
 
+      modelBuilder.Entity<Species>()
+     .Property(s => s.Price)
+     .HasPrecision(18, 4);
+
       modelBuilder.Entity<FishMarketInventory>()
                    .HasKey(fmi => new { fmi.FishMarketId, fmi.SpeciesId });
 

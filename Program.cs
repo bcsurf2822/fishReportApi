@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 //DB CONTEXT
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FishDBContext>(options =>
-    options.UseSqlite(connectionString));
+    options.UseSqlServer(connectionString));
 
 //JWT AUTHENTICATION
 var authSettings = builder.Configuration.GetSection("JwtSettings");

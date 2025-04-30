@@ -2,6 +2,7 @@
 using FishReportApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -10,29 +11,35 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace myWebAppApi.Migrations
 {
     [DbContext(typeof(FishDBContext))]
-    [Migration("20250328115502_InitialCreate")]
+    [Migration("20250430191748_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "9.0.4")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("FishReportApi.Models.FishMarket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Location")
                         .HasMaxLength(200)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("MarketName")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -62,10 +69,10 @@ namespace myWebAppApi.Migrations
             modelBuilder.Entity("FishReportApi.Models.FishMarketInventory", b =>
                 {
                     b.Property<int>("FishMarketId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("SpeciesId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("FishMarketId", "SpeciesId");
 
@@ -185,29 +192,32 @@ namespace myWebAppApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Habitat")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Length")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Lifespan")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int?>("Population")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("TEXT");
+                        .HasPrecision(18, 4)
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("Id");
 
