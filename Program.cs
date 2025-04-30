@@ -119,7 +119,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseCors("AllowLocal5173");
+    app.UseCors("AllowAll");
 }
 
 
